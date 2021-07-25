@@ -1,0 +1,45 @@
+<mat-toolbar>
+  <span>
+    <a href="/home">
+      Busca tu artista</a>
+  </span>
+  <span class="example-spacer"></span>
+
+  <div>
+    <mat-form-field class="example-form-field">
+    <input class="searchinput" matInput type="text" [(ngModel)]="value" placeholder="Intoduce el nombre del artisata">
+    <button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''; getartist()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-form-field>
+
+  <button mat-icon-button class="example-icon" (click)="getartist()" aria-label="button with serach icon">
+    <mat-icon>search</mat-icon>
+  </button>
+  </div>
+  
+</mat-toolbar>
+
+<mat-grid-list cols="4" rowHeight="1:1.5" *ngIf="seachready">
+  <mat-grid-tile *ngFor="let artist of artisttoshow">
+    <mat-card *ngIf="artist.type=='artist'" class="example-card">
+      <mat-card-header>
+        <mat-card-title>{{artist.name}}</mat-card-title>
+      </mat-card-header>
+        <img class="artistimage" mat-card-image src={{artist.images[0]?artist.images[0].url:defimg}} alt="artist Photo">
+
+      
+      <mat-card-content class="btncontainer">
+
+        <button mat-raised-button mat-button color="primary" (click)="getsongs(artist.id)">Ver Canciones</button>
+
+        <button mat-raised-button mat-button color="Accent">
+          <a href={{artist.url}} target="_blank" rel="noopener">
+            Ver en spotify
+          </a>
+          </button>
+
+      </mat-card-content>
+    </mat-card>
+  </mat-grid-tile>
+</mat-grid-list>
